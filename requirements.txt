@@ -1,0 +1,15 @@
+# Cortex Search — Python dependencies
+# Install with: pip install -r requirements.txt
+
+# ── Core UI ───────────────────────────────────────────────────────────────
+streamlit>=1.32.0
+
+# ── Data processing ───────────────────────────────────────────────────────
+pandas>=2.0.0
+
+# ── SQL parsing & validation ──────────────────────────────────────────────
+sqlglot>=23.0.0          # Robust SQL parser for validation guardrails
+
+# ── Production Snowflake connection (optional — not needed for mock mode) ─
+# Uncomment when switching USE_MOCK=False in services/snowflake_client.py
+# snowflake-connector-python[pandas]>=3.6.0

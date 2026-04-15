@@ -1,0 +1,72 @@
+[
+  {
+    "doc_id": "KB001",
+    "title": "Revenue Definition",
+    "category": "metric",
+    "tags": ["revenue", "bookings", "ARR"],
+    "content": "Revenue is defined as recognized contract value from closed-won opportunities. This includes new business, upsells, and cross-sells. Renewals are tracked separately as renewal revenue. Revenue figures are reported in USD and recognized on the contract start date per Sales Policy v3.0."
+  },
+  {
+    "doc_id": "KB002",
+    "title": "Deal Size Definition",
+    "category": "metric",
+    "tags": ["deal size", "ACV", "contract value"],
+    "content": "Deal size refers to the total contract value (TCV) of a single closed-won deal, including base subscription, professional services, and add-ons. Deal size includes new business, renewals, and expansions as defined in Sales Policy v2.1. Average deal size is computed as TCV divided by number of deals in the period."
+  },
+  {
+    "doc_id": "KB003",
+    "title": "EMEA Region Definition",
+    "category": "region",
+    "tags": ["EMEA", "region", "geography"],
+    "content": "EMEA (Europe, Middle East, and Africa) is a sales territory that includes all accounts headquartered in European Union countries, the UK, Switzerland, Nordics, Middle East (excluding Israel which is AMER), and Africa. EMEA is one of three global regions alongside AMER and APAC."
+  },
+  {
+    "doc_id": "KB004",
+    "title": "Enterprise Segment Definition",
+    "category": "segment",
+    "tags": ["enterprise", "segment", "customer tier"],
+    "content": "Enterprise segment includes accounts with annual contract value (ACV) greater than $100,000, or organizations with more than 1,000 employees. Enterprise accounts receive dedicated customer success management and have access to enterprise support SLAs. Mid-Market accounts have ACV between $25,000 and $100,000."
+  },
+  {
+    "doc_id": "KB005",
+    "title": "Churn Risk Scoring",
+    "category": "metric",
+    "tags": ["churn", "churn risk", "retention", "health score"],
+    "content": "Churn risk is categorized as High, Medium, or Low based on a composite health score (0–100). High churn risk = health score below 40. Medium = 40–70. Low = above 70. Scores are updated weekly using product usage data, NPS responses, support ticket volume, and days since last login. Accounts flagged as High churn risk are escalated to the CS team within 48 hours."
+  },
+  {
+    "doc_id": "KB006",
+    "title": "Annual Contract Value (ACV)",
+    "category": "metric",
+    "tags": ["ACV", "annual contract value", "ARR"],
+    "content": "Annual Contract Value (ACV) is the normalized yearly value of a customer contract. For multi-year deals, ACV = TCV / contract length in years. ACV excludes one-time professional services fees. ACV is the primary metric used for quota attainment, commission calculation, and segment classification."
+  },
+  {
+    "doc_id": "KB007",
+    "title": "Renewals Policy",
+    "category": "policy",
+    "tags": ["renewal", "retention", "contract"],
+    "content": "Renewals are tracked separately from new business in all revenue reports. A renewal is counted when an existing customer contract is extended or re-signed within 90 days of the expiration date. Early renewals (more than 90 days before expiry) are classified as expansions if the ACV increases, or flat renewals otherwise. The CS team owns all renewal motions for Enterprise accounts."
+  },
+  {
+    "doc_id": "KB008",
+    "title": "Top Customer Ranking Methodology",
+    "category": "methodology",
+    "tags": ["top customers", "ranking", "revenue"],
+    "content": "Top customers are ranked by total revenue recognized in the selected time period. Revenue includes all deal types: new business, expansion, and renewal. Customers with multiple deals in the period have their revenue aggregated before ranking. Rankings are tenant-scoped and do not include data from other business units."
+  },
+  {
+    "doc_id": "KB009",
+    "title": "Quarter Definition",
+    "category": "time",
+    "tags": ["quarter", "Q1", "Q2", "Q3", "Q4", "fiscal year"],
+    "content": "The company follows a calendar-year fiscal calendar. Q1 = January–March, Q2 = April–June, Q3 = July–September, Q4 = October–December. 'Last quarter' refers to the most recently completed calendar quarter. All date filters use the close_date field which reflects the date a deal was marked closed-won in CRM."
+  },
+  {
+    "doc_id": "KB010",
+    "title": "Data Governance and Access Policy",
+    "category": "policy",
+    "tags": ["governance", "access control", "security", "RBAC"],
+    "content": "All data access through Cortex Search is restricted to approved secure views. Raw base tables are never directly accessible. Row-level security ensures users only see data for their assigned tenant. Column masking is applied to PII fields including customer email and personal contact details. All queries are logged for audit purposes per the Enterprise Data Governance Policy v1.4."
+  }
+]
