@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikitha Ramesh — Product Manager, Reflow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green:  #16a34a;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --red:    #dc2626;
+    --red-bg: #fef2f2;
+    --red-border: #fecaca;
+    --amber:  #d97706;
+    --amber-bg: #fffbeb;
+    --amber-border: #fde68a;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-400: #9ca3af;
+    --gray-600: #4b5563;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --border: 0.5px solid var(--gray-200);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    background: #fff;
+    color: var(--gray-900);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ──────────────────────────────────────────── */
+  .hero {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 24px 64px;
+    border-bottom: var(--border);
+  }
+  .hero-name {
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--gray-900);
+  }
+  .hero-role {
+    font-size: clamp(14px, 2.5vw, 17px);
+    color: var(--gray-600);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  .hero-line {
+    margin-top: 20px;
+    font-size: clamp(14px, 2.2vw, 16px);
+    color: var(--gray-600);
+    border-left: 2px solid var(--green);
+    padding-left: 14px;
+  }
+
+  /* ── SECTION WRAPPER ───────────────────────────────── */
+  .section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 64px 24px;
+    border-bottom: var(--border);
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 28px;
+  }
+
+  /* ── DEMO ──────────────────────────────────────────── */
+  .demo-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .scenario-select {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-800);
+    border: var(--border);
+    border-color: var(--gray-200);
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239ca3af' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+  }
+  .scenario-select:focus { border-color: var(--green); }
+
+  .play-btn {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: var(--green);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .play-btn:hover { opacity: 0.88; }
+  .play-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .reset-btn {
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--gray-600);
+    background: none;
+    border: var(--border);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: none;
+  }
+  .reset-btn.visible { display: inline-block; }
+  .reset-btn:hover { background: var(--gray-50); }
+
+  .flow-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .flow-col {
+    border: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .flow-col-header {
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: var(--border);
+  }
+  .flow-col-header.sop { color: var(--green); background: var(--green-bg); }
+  .flow-col-header.actual { color: var(--red); background: var(--red-bg); }
+
+  .flow-steps {
+    padding: 14px 12px;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 6px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .step.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .step-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+    width: 20px;
+  }
+
+  .step-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .step-dot.done  { background: var(--green); }
+  .step-dot.error { background: var(--red); }
+  .step-dot.warn  { background: var(--amber); }
+  .step-dot.idle  { background: var(--gray-200); }
+
+  .step-line-seg {
+    width: 1px;
+    flex: 1;
+    min-height: 16px;
+    background: var(--gray-200);
+  }
+  .step-line-seg.done  { background: var(--green); }
+  .step-line-seg.error { background: var(--red); }
+  .step-line-seg.warn  { background: var(--amber); }
+
+  .step-body { flex: 1; padding-bottom: 4px; }
+
+  .step-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-900);
+    line-height: 1.35;
+  }
+  .step-label.error { color: var(--red); }
+  .step-label.warn  { color: var(--amber); }
+
+  .step-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .step-badge.error { background: var(--red-bg); color: var(--red); border: 0.5px solid var(--red-border); }
+  .step-badge.warn  { background: var(--amber-bg); color: var(--amber); border: 0.5px solid var(--amber-border); }
+
+  .step-delay {
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .flow-time {
+    border-top: var(--border);
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-600);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .flow-time.visible { opacity: 1; }
+  .flow-time .time-val { color: var(--gray-900); font-size: 14px; }
+
+  /* ── STATS ─────────────────────────────────────────── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.45s ease 0.1s, transform 0.45s ease 0.1s;
+  }
+  .stats-row.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stat-tile {
+    border: var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    background: var(--gray-50);
+  }
+  .stat-tile-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--gray-400);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .stat-tile-vals {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .stat-sop { font-size: 20px; font-weight: 600; color: var(--green); }
+  .stat-arr { font-size: 14px; color: var(--gray-400); }
+  .stat-actual { font-size: 20px; font-weight: 600; color: var(--red); }
+  .stat-tile-sub { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+
+  .demo-caption {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--gray-400);
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── 90 DAYS ───────────────────────────────────────── */
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .plan-col {
+    border: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .plan-col-header {
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-600);
+    background: var(--gray-50);
+    border-bottom: var(--border);
+  }
+  .plan-col-header span {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 2px;
+  }
+
+  .plan-items {
+    padding: 14px 16px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .plan-items li {
+    font-size: 13px;
+    color: var(--gray-700, #374151);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.45;
+  }
+  .plan-items li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gray-300, #d1d5db);
+    font-weight: 400;
+  }
+
+  /* ── WHY ME ────────────────────────────────────────── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .why-card {
+    border: var(--border);
+    border-radius: 10px;
+    padding: 22px 20px;
+  }
+  .why-card-num {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+  .why-card-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-800);
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ────────────────────────────────────────── */
+  footer {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .footer-links a {
+    font-size: 13px;
+    color: var(--gray-600);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 0.5px solid var(--gray-200);
+    padding-bottom: 1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .footer-links a:hover { color: var(--green); border-color: var(--green); }
+
+  .footer-cta {
+    font-size: 13px;
+    color: var(--gray-400);
+  }
+
+  /* ── MOBILE ────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .hero { padding: 52px 20px 44px; }
+    .section { padding: 44px 20px; }
+
+    .flow-grid { grid-template-columns: 1fr; }
+
+    .stats-row { grid-template-columns: 1fr; gap: 10px; }
+
+    .plan-grid { grid-template-columns: 1fr; }
+
+    .why-grid { grid-template-columns: 1fr; }
+
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (max-width: 820px) and (min-width: 641px) {
+    .plan-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid  { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-name">Nikitha Ramesh</div>
+  <div class="hero-role">Product Manager — Reflow</div>
+  <p class="hero-line">
+    Reflow just launched. The product works. Now it needs to ship at scale — that's this role.
+  </p>
+</header>
+
+<!-- ── DEMO ────────────────────────────────────────────── -->
+<section class="section">
+  <div class="section-label">Workflow Replay</div>
+
+  <div class="demo-controls">
+    <select class="scenario-select" id="scenarioSelect" onchange="resetDemo()">
+      <option value="ticket">Ticket Triage</option>
+      <option value="invoice">Invoice Approval</option>
+      <option value="contract">Contract Review</option>
+    </select>
+    <button class="play-btn" id="playBtn" onclick="runDemo()">&#9654; Play</button>
+    <button class="reset-btn" id="resetBtn" onclick="resetDemo()">Reset</button>
+  </div>
+
+  <div class="flow-grid">
+    <!-- SOP Column -->
+    <div class="flow-col">
+      <div class="flow-col-header sop">Documented SOP</div>
+      <div class="flow-steps" id="sopSteps"></div>
+      <div class="flow-time" id="sopTime"></div>
+    </div>
+    <!-- Actual Column -->
+    <div class="flow-col">
+      <div class="flow-col-header actual">What Actually Happens</div>
+      <div class="flow-steps" id="actualSteps"></div>
+      <div class="flow-time" id="actualTime"></div>
+    </div>
+  </div>
+
+  <div class="stats-row" id="statsRow">
+    <div class="stat-tile">
+      <div class="stat-tile-label">Steps</div>
+      <div class="stat-tile-vals">
+        <span class="stat-sop" id="stat-sop-steps">—</span>
+        <span class="stat-arr">→</span>
+        <span class="stat-actual" id="stat-actual-steps">—</span>
+      </div>
+      <div class="stat-tile-sub">added steps</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-tile-label">Cycle Time</div>
+      <div class="stat-tile-vals">
+        <span class="stat-sop" id="stat-sop-time">—</span>
+        <span class="stat-arr">→</span>
+        <span class="stat-actual" id="stat-actual-time">—</span>
+      </div>
+      <div class="stat-tile-sub">actual duration</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-tile-label" id="stat3-label">3rd Metric</div>
+      <div class="stat-tile-vals">
+        <span class="stat-sop" id="stat-sop-3">—</span>
+        <span class="stat-arr">→</span>
+        <span class="stat-actual" id="stat-actual-3">—</span>
+      </div>
+      <div class="stat-tile-sub" id="stat3-sub"></div>
+    </div>
+  </div>
+
+  <p class="demo-caption">This is what Reflow makes visible.</p>
+</section>
+
+<!-- ── 90 DAYS ──────────────────────────────────────────── -->
+<section class="section">
+  <div class="section-label">What I'd ship in 90 days</div>
+
+  <div class="plan-grid">
+    <div class="plan-col">
+      <div class="plan-col-header">
+        <span>Days 1–30</span>
+        Learn
+      </div>
+      <ul class="plan-items">
+        <li>Partner map — every active integration, owner, and status</li>
+        <li>Friction audit across all customer touchpoints</li>
+        <li>Shadow 3+ customer sessions, take structured notes</li>
+        <li>Map gaps between documented SOPs and live workflows</li>
+      </ul>
+    </div>
+    <div class="plan-col">
+      <div class="plan-col-header">
+        <span>Days 31–60</span>
+        Build
+      </div>
+      <ul class="plan-items">
+        <li>Onboarding playbook v1 — repeatable, tested with one partner</li>
+        <li>Roadmap cadence established with eng + GTM</li>
+        <li>Feedback → spec pipeline (source, triage, write, ship)</li>
+        <li>First retro with cross-functional team</li>
+      </ul>
+    </div>
+    <div class="plan-col">
+      <div class="plan-col-header">
+        <span>Days 61–90</span>
+        Ship
+      </div>
+      <ul class="plan-items">
+        <li>Time-to-first-insight target defined per partner tier</li>
+        <li>ARS feature spec — written, reviewed, prioritized</li>
+        <li>Retrospective: what worked, what to cut, next cycle</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-links">
+    <a href="mailto:nikithaa04@gmail.com">nikithaa04@gmail.com</a>
+    <a href="https://linkedin.com/in/nikitharamesh" target="_blank">LinkedIn</a>
+  </div>
+  <div class="footer-cta">Happy to walk through any of this live.</div>
+</footer>
+
+<script>
+// ── DATA ───────────────────────────────────────────────────────────────
+const scenarios = {
+  ticket: {
+    sop: {
+      steps: [
+        { label: 'Received',         type: 'done' },
+        { label: 'Auto-categorize',  type: 'done' },
+        { label: 'Route',            type: 'done' },
+        { label: 'Resolve',          type: 'done' },
+        { label: 'Close',            type: 'done', last: true },
+      ],
+      time: '8 min',
+    },
+    actual: {
+      steps: [
+        { label: 'Received',                       type: 'done' },
+        { label: 'Mis-categorized',                type: 'error', badge: 'ERR' },
+        { label: 'Wrong team',                     type: 'error', badge: 'ERR', delay: '+14 min' },
+        { label: 'Manual escalation',              type: 'warn',  badge: 'WARN' },
+        { label: 'Re-categorized',                 type: 'warn',  badge: 'WARN' },
+        { label: 'Route',                          type: 'done' },
+        { label: 'Resolve',                        type: 'done' },
+        { label: 'Close',                          type: 'done', last: true },
+      ],
+      time: '47 min',
+    },
+    stats: {
+      steps:  { sop: '5 steps',     actual: '8 steps' },
+      time:   { sop: '8 min',       actual: '47 min' },
+      label3: 'Misroute Rate',
+      stat3:  { sop: '0%',          actual: '19%' },
+      sub3:   'of tickets misrouted',
+    },
+  },
+  invoice: {
+    sop: {
+      steps: [
+        { label: 'Received',         type: 'done' },
+        { label: 'Match PO',         type: 'done' },
+        { label: 'Approval',         type: 'done' },
+        { label: 'Schedule payment', type: 'done' },
+        { label: 'Close',            type: 'done', last: true },
+      ],
+      time: '1 day',
+    },
+    actual: {
+      steps: [
+        { label: 'Received',         type: 'done' },
+        { label: 'PO not found',     type: 'error', badge: 'ERR' },
+        { label: 'Manual lookup',    type: 'warn',  badge: 'WARN', delay: '+7 min' },
+        { label: 'PO matched',       type: 'done' },
+        { label: 'Wrong approver',   type: 'error', badge: 'ERR' },
+        { label: 'Re-routed',        type: 'warn',  badge: 'WARN' },
+        { label: 'Approval',         type: 'done' },
+        { label: 'Schedule payment', type: 'done' },
+        { label: 'Close',            type: 'done', last: true },
+      ],
+      time: '4.2 days',
+    },
+    stats: {
+      steps:  { sop: '5 steps',   actual: '9 steps' },
+      time:   { sop: '1 day',     actual: '4.2 days' },
+      label3: 'Compliance Rate',
+      stat3:  { sop: '100%',      actual: '61%' },
+      sub3:   'invoices compliant',
+    },
+  },
+  contract: {
+    sop: {
+      steps: [
+        { label: 'Submitted',        type: 'done' },
+        { label: 'Legal assigned',   type: 'done' },
+        { label: 'Review',           type: 'done' },
+        { label: 'Approval',         type: 'done' },
+        { label: 'Executed',         type: 'done', last: true },
+      ],
+      time: '3 days',
+    },
+    actual: {
+      steps: [
+        { label: 'Submitted',        type: 'done' },
+        { label: 'Unassigned 48h',   type: 'error', badge: 'ERR' },
+        { label: 'Slack ping',       type: 'warn',  badge: 'WARN' },
+        { label: 'Wrong reviewer',   type: 'error', badge: 'ERR' },
+        { label: 'Re-assigned',      type: 'warn',  badge: 'WARN' },
+        { label: 'Review',           type: 'done',  delay: '+9 days' },
+        { label: 'Approval',         type: 'done' },
+        { label: 'Executed',         type: 'done', last: true },
+      ],
+      time: '11 days',
+    },
+    stats: {
+      steps:  { sop: '5 steps',     actual: '8 steps' },
+      time:   { sop: '3 days',      actual: '11 days' },
+      label3: 'Undetected Drift',
+      stat3:  { sop: '0 steps',     actual: '3 steps' },
+      sub3:   'off-script, invisible',
+    },
+  },
+};
+
+// ── STATE ──────────────────────────────────────────────────────────────
+let running = false;
+let timers  = [];
+
+function clearTimers() {
+  timers.forEach(t => clearTimeout(t));
+  timers = [];
+}
+
+// ── BUILD STEP DOM ──────────────────────────────────────────────────────
+function buildStepEl(step, isLast) {
+  const div = document.createElement('div');
+  div.className = 'step';
+
+  // connector
+  const conn = document.createElement('div');
+  conn.className = 'step-connector';
+  const dot = document.createElement('div');
+  dot.className = 'step-dot idle';
+  conn.appendChild(dot);
+  if (!isLast) {
+    const line = document.createElement('div');
+    line.className = 'step-line-seg';
+    conn.appendChild(line);
+  }
+
+  // body
+  const body = document.createElement('div');
+  body.className = 'step-body';
+
+  const labelRow = document.createElement('div');
+  labelRow.className = 'step-label';
+  labelRow.textContent = step.label;
+  if (step.badge) {
+    const badge = document.createElement('span');
+    badge.className = `step-badge ${step.type}`;
+    badge.textContent = step.badge;
+    labelRow.classList.add(step.type);
+    labelRow.appendChild(badge);
+  }
+  body.appendChild(labelRow);
+
+  if (step.delay) {
+    const d = document.createElement('div');
+    d.className = 'step-delay';
+    d.textContent = step.delay;
+    body.appendChild(d);
+  }
+
+  div.appendChild(conn);
+  div.appendChild(body);
+  div._dot  = dot;
+  div._line = conn.querySelector('.step-line-seg');
+  div._type = step.type;
+  return div;
+}
+
+// ── INIT COLUMNS ───────────────────────────────────────────────────────
+function initColumns(scenarioKey) {
+  const s = scenarios[scenarioKey];
+  const sopEl    = document.getElementById('sopSteps');
+  const actualEl = document.getElementById('actualSteps');
+  sopEl.innerHTML    = '';
+  actualEl.innerHTML = '';
+
+  s.sop.steps.forEach((step, i) => {
+    sopEl.appendChild(buildStepEl(step, i === s.sop.steps.length - 1));
+  });
+  s.actual.steps.forEach((step, i) => {
+    actualEl.appendChild(buildStepEl(step, i === s.actual.steps.length - 1));
+  });
+
+  document.getElementById('sopTime').classList.remove('visible');
+  document.getElementById('actualTime').classList.remove('visible');
+  document.getElementById('statsRow').classList.remove('visible');
+}
+
+// ── ANIMATE A COLUMN ───────────────────────────────────────────────────
+function animateCol(stepsData, containerEl, timeEl, timeLabel, delay, onDone) {
+  const stepEls = Array.from(containerEl.querySelectorAll('.step'));
+  const base = delay;
+  const perStep = 480;
+
+  stepsData.forEach((step, i) => {
+    const t = setTimeout(() => {
+      const el  = stepEls[i];
+      el.classList.add('visible');
+      // update dot
+      el._dot.className = `step-dot ${step.type}`;
+      // update line segment if present
+      if (el._line) el._line.className = `step-line-seg ${step.type}`;
+    }, base + i * perStep);
+    timers.push(t);
+  });
+
+  const doneT = setTimeout(() => {
+    timeEl.innerHTML = `<span style="color:var(--gray-400);font-weight:400;font-size:11px;">Total:&nbsp;</span><span class="time-val">${timeLabel}</span>`;
+    timeEl.classList.add('visible');
+    if (onDone) onDone();
+  }, base + stepsData.length * perStep + 120);
+  timers.push(doneT);
+}
+
+// ── RUN DEMO ───────────────────────────────────────────────────────────
+function runDemo() {
+  if (running) return;
+  running = true;
+
+  const key = document.getElementById('scenarioSelect').value;
+  const s   = scenarios[key];
+
+  document.getElementById('playBtn').disabled = true;
+  document.getElementById('resetBtn').classList.add('visible');
+
+  let sopDone    = false;
+  let actualDone = false;
+
+  function checkBothDone() {
+    if (!sopDone || !actualDone) return;
+    const statsRow = document.getElementById('statsRow');
+    // populate stats
+    document.getElementById('stat-sop-steps').textContent    = s.stats.steps.sop;
+    document.getElementById('stat-actual-steps').textContent = s.stats.steps.actual;
+    document.getElementById('stat-sop-time').textContent     = s.stats.time.sop;
+    document.getElementById('stat-actual-time').textContent  = s.stats.time.actual;
+    document.getElementById('stat3-label').textContent       = s.stats.label3;
+    document.getElementById('stat-sop-3').textContent        = s.stats.stat3.sop;
+    document.getElementById('stat-actual-3').textContent     = s.stats.stat3.actual;
+    document.getElementById('stat3-sub').textContent         = s.stats.sub3;
+
+    const t = setTimeout(() => {
+      statsRow.classList.add('visible');
+    }, 200);
+    timers.push(t);
+  }
+
+  animateCol(
+    s.sop.steps,
+    document.getElementById('sopSteps'),
+    document.getElementById('sopTime'),
+    s.sop.time,
+    0,
+    () => { sopDone = true; checkBothDone(); }
+  );
+
+  animateCol(
+    s.actual.steps,
+    document.getElementById('actualSteps'),
+    document.getElementById('actualTime'),
+    s.actual.time,
+    80, // slight offset so they don't appear perfectly simultaneous
+    () => { actualDone = true; checkBothDone(); }
+  );
+}
+
+// ── RESET ──────────────────────────────────────────────────────────────
+function resetDemo() {
+  clearTimers();
+  running = false;
+  document.getElementById('playBtn').disabled = false;
+  document.getElementById('resetBtn').classList.remove('visible');
+  document.getElementById('statsRow').classList.remove('visible');
+
+  const key = document.getElementById('scenarioSelect').value;
+  initColumns(key);
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────
+initColumns('ticket');
+</script>
+</body>
+</html>
